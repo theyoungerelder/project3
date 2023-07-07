@@ -1,0 +1,5 @@
+https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LOW_MOD_INCOME_BY_BG/FeatureServer/12/query?where=Countyname%20%3D%20%27MULTNOMAH%20COUNTY%27%20AND%20Stusab%20%3D%20%27OR%27&outFields=GEOID,Source,geoname,Stusab,Countyname,State,County,Tract,BLKGRP,Low,Lowmod,Lmmi,Lowmoduniv,Lowmod_pct,Shape__Area,Shape__Length&outSR=4326&f=json
+
+Using = https://automating-gis-processes.github.io/CSC18/lessons/L4/point-in-polygon.html
+https://geopandas.org/en/stable/docs/user_guide/data_structures.html
+This link will help up assign block groups to each HUD location
