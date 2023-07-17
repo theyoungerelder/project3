@@ -76,9 +76,7 @@ function createMap(HUDHousing){
 // create custom Icon for house markers
 let houseIcon = L.icon({
     iconUrl: "bighouse.png",
-    iconSize: [32,37],
-    iconAnchor: [25,25],
-    popupAnchor: [0,0]
+    iconSize: [32,37]
 })
 
 function createMarkers(data) {
