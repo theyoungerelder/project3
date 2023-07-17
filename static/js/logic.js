@@ -72,6 +72,7 @@ function createMap(HUDHousing){
     legend.addTo(myMap)
     
 }
+
 // create custom Icon for house markers
 let houseIcon = L.icon({
     iconUrl: "bighouse.png",
@@ -79,6 +80,7 @@ let houseIcon = L.icon({
     iconAnchor: [22,94],
     popupAnchor: [-3,-76]
 })
+
 function createMarkers(data) {
     // Initialize an array to hold hud locations
     let hudMarkers = [];
@@ -98,6 +100,7 @@ function createMarkers(data) {
     // create a layer group made from hud locations and pass to createMap function
     createMap(L.layerGroup(hudMarkers))
 }
+
 d3.csv("https://raw.githubusercontent.com/theyoungerelder/project3/main/Resources/LIHTCdatasetlatlong.csv").then((data) => {
     createMarkers(data)
 }
