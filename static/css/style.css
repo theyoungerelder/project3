@@ -8,8 +8,11 @@ body,
   margin: 0;
 }
 .legend {
+  padding: 10px;
   line-height: 18px;
   color: #555;
+  background-color: #fff;
+  border-radius: 5px;
 }
 .legend i {
   width: 18px;

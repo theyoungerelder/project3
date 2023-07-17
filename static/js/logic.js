@@ -3,21 +3,19 @@ function createMap(HUDHousing){
     let streetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     });
-
     // coloring geojson polygons using poverty ratings
-    function getColor(blockGroupNumber) {
+    function getColor(lowModPCT) {
         switch (true) {
-            case blockGroupNumber <= .25:
+            case lowModPCT <= .25:
                 return "#FFEDA0"
-            case blockGroupNumber <= .5:
+            case lowModPCT <= .5:
                 return "#FEB24C"
-            case blockGroupNumber <= .75:
+            case lowModPCT <= .75:
                 return "#FC4E2A"
-            case blockGroupNumber <= 1:
+            case lowModPCT <= 1:
                 return "#800026"
         }
     }
-
     // setting fill options for geojson info
     function styleInfo(feature) {
         return {
@@ -25,7 +23,6 @@ function createMap(HUDHousing){
             fillOpacity:.6
         }
     }
-
     // adding info from geojson for popups
     blockLayer = L.layerGroup()
     d3.json("https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LOW_MOD_INCOME_BY_BG/FeatureServer/12/query?where=Countyname%20%3D%20%27MULTNOMAH%20COUNTY%27%20AND%20Stusab%20%3D%20%27OR%27&outFields=GEOID,Source,geoname,Stusab,Countyname,State,County,Tract,BLKGRP,Low,Lowmod,Lmmi,Lowmoduniv,Lowmod_pct,Shape__Area,Shape__Length&outSR=4326&f=GeoJson").then((data) => {
@@ -40,38 +37,28 @@ function createMap(HUDHousing){
             }
         }).addTo(blockLayer)
     })
-
-
     // Adding a Legend
-        let legend = L.control({position: 'bottomright'});
-
-    legend.onAdd = function (myMap) {
-
+    let legend = L.control({position: 'bottomright'});
+    legend.onAdd = function () {
         let div = L.DomUtil.create('div', 'info legend'),
-            grades = [0, 10, 20, 50, 100, 200, 500, 1000],
-            labels = ["test","test2"];
-
+            grades = [.25, .5, .75, 1]
+        div.innerHTML += "<h4> Poverty Percentage </h4>"
         // loop through our density intervals and generate a label with a colored square for each interval
         for (let i = 0; i < grades.length; i++) {
             div.innerHTML +=
-                '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-                grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+                '<i style="background:' + getColor(grades[i]) + '"></i> ' +
+                (grades[i - 1] ? grades[i - 1] + '&ndash;' + grades[i] : '<' + grades[i]) + '<br>';
         }
-
         return div;
     };
-
     // setting layer groups 
     let baseMaps = {
         'Street Map': streetmap
     }
-
-
     let overlayMaps = {
         "HUD Housing": HUDHousing,
         "Low to Mod Percent": blockLayer
     };
-
     // set up map center and layers / layer controls
     let myMap = L.map("map", {
         center: [45.516682, -122.538490],
@@ -82,9 +69,9 @@ function createMap(HUDHousing){
     L.control.layers(baseMaps, overlayMaps, legend, {
         collapsed: false
     }).addTo(myMap)
+    legend.addTo(myMap)
     
 }
-
 // create custom Icon for house markers
 let houseIcon = L.icon({
     iconUrl: "bighouse.png",
@@ -92,7 +79,6 @@ let houseIcon = L.icon({
     iconAnchor: [22,94],
     popupAnchor: [-3,-76]
 })
-
 function createMarkers(data) {
     // Initialize an array to hold hud locations
     let hudMarkers = [];
