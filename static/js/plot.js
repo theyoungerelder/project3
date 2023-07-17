@@ -1,9 +1,9 @@
 // Setting up bar charts 
-var xValue = ['Product A', 'Product B', 'Product C'];
+let xValue = ['Product A', 'Product B', 'Product C'];
 
-var yValue = [20, 14, 23];
+let yValue = [20, 14, 23];
 
-var trace1 = {
+let trace1 = {
   x: xValue,
   y: yValue,
   type: 'bar',
@@ -20,9 +20,9 @@ var trace1 = {
   }
 };
 
-var data = [trace1];
+let data = [trace1];
 
-var layout = {
+let layout = {
   title: 'January 2013 Sales Report',
   barmode: 'stack',
   autosize: true

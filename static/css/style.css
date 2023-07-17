@@ -23,8 +23,8 @@ body,
 }
 #plots{
   position: relative;
-  width: 100%;
+  left: 73%;
+  width: 25%;
   height: 320px;
   padding: 0;
-  margin: 0;
 }
