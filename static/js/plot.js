@@ -1,10 +1,10 @@
 // Setting up bar charts 
-function plotGraph(x1,y1,title,ID){
+function plotGraph(x1,y1,ytitle,title,ID){
   // ploting the data passed in
   let trace1 = {
     x: x1,
     y: y1,
-    type: 'pie',
+    type: 'bar',
     text: y1.map(String),
     textposition: 'auto',
     hoverinfo: 'none',
@@ -23,41 +23,52 @@ function plotGraph(x1,y1,title,ID){
   let layout = {
     title: title,
     barmode: 'stack',
-    autosize: true
+    autosize: true,
+    yaxis: {
+      title: ytitle
+    }
   };
 
   Plotly.newPlot(ID, data, layout);
 }
 
 // pass in data from CSV's to plot using the function
-d3.csv("Value_Trends.csv").then((data)=>{
+d3.csv("https://raw.githubusercontent.com/theyoungerelder/project3/Nicks_Branch/Value_Trends1.csv").then((data)=>{
   let x1 = [];
   let y1 = [];
+  let ytitle = "Home Values";
   let title = "Value Trends";
   let ID = "plots1";
-
+  
   // loop through rows to get data to pass into the above arrays
   for (let i = 0; i < data.length; i++){
-    let rowX = data["Year"];
-    let rowY = data["Home Value"];
-    x1.push(rowX);
-    y1.push(rowY)
-  }
-
-  plotGraph(x1,y1,title,ID)
-})
-
-d3.csv("2021_non_fam_income.csv").then((data)=>{
-  let x1 = [];
-  let y1 = [];
-  let title = "2021 Income for Individual Households";
-  let ID = "plots2";
-  // loop through rows to get data to pass into the above arrays
-  for (let i = 0; i < data.length; i++){
-    let rowX = data["Label (Grouping)"];
-    let rowY = data["Nonfamily Households"];
+    let row = data[i]
+    let rowX = row["Year"];
+    let rowY = row["Home Value"];
     x1.push(rowX);
     y1.push(rowY);
   }
-  plotGraph(x1,y1,title,ID)
+  
+  console.log(x1,y1,ID,title)
+  plotGraph(x1,y1,ytitle,title,ID)
+})
+
+d3.csv("https://raw.githubusercontent.com/theyoungerelder/project3/Nicks_Branch/2021_non_fam_income.csv").then((data)=>{
+  let x1 = [];
+  let y1 = [];
+  let ytitle = "Percent Below ??";
+  let title = "2021 Income for Individual Households";
+  let ID = "plots2";
+  
+  // loop through rows to get data to pass into the above arrays
+  for (let i = 0; i < data.length; i++){
+    let row = data[i]
+    let rowX = row["Label (Grouping)"];
+    let rowY = row["Nonfamily Households"];
+    x1.push(rowX);
+    y1.push(rowY);
+  }
+
+  console.log(x1,y1,ID,title)
+  plotGraph(x1,y1,ytitle,title,ID)
 })
