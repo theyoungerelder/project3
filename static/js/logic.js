@@ -30,9 +30,9 @@ function createMap(HUDHousing){
             style: styleInfo,
             onEachFeature: function (feature, layer) {
                 layer.bindPopup(
-                    "Total People: " + feature.properties.Lowmoduniv +
-                    "<br /> Low to Mod Percent: " + ((feature.properties.Lowmod_pct)*100).toFixed(2) +"%"+
-                    "<br /> Low Percent: " + ((feature.properties.Low/feature.properties.Lowmoduniv)*100).toFixed(2) +"%"
+                    "<h5> Total People: " + feature.properties.Lowmoduniv + "</h5>" +
+                    "<h5> Low to Mod Percent: " + ((feature.properties.Lowmod_pct)*100).toFixed(2) +"%"+ "</h5>" +
+                    "<h5> Low Percent: " + ((feature.properties.Low/feature.properties.Lowmoduniv)*100).toFixed(2) +"%</h5>"
                 )
             }
         }).addTo(blockLayer)
@@ -47,7 +47,7 @@ function createMap(HUDHousing){
         for (let i = 0; i < grades.length; i++) {
             div.innerHTML +=
                 '<i style="background:' + getColor(grades[i]) + '"></i> ' +
-                (grades[i - 1] ? grades[i - 1] + '&ndash;' + grades[i] : '<' + grades[i]) + '<br>';
+                (grades[i - 1] ? (grades[i - 1] *100)+ "%" + '&ndash;' + (grades[i])*100 + "%" : '<' + (grades[i]*100) + "%") + '<br>';
         }
         return div;
     };
@@ -66,8 +66,8 @@ function createMap(HUDHousing){
         layers: [streetmap, HUDHousing, blockLayer]
       });
     
-    L.control.layers(baseMaps, overlayMaps, legend, {
-        collapsed: false
+    L.control.layers(baseMaps, overlayMaps, {
+        collapsed: false,
     }).addTo(myMap)
     legend.addTo(myMap)
     
@@ -90,9 +90,9 @@ function createMarkers(data) {
         // for each location create marker
         let hudMarker = L.marker([hud["Project's Latitude:"], hud["Project's Longitude:"]], {icon:houseIcon})
             .bindPopup(
-            "Project Name: " + hud["Project Name:"] +
-            "<br />Number of Units: " + hud["Total Number of Units:"]+
-            "<br />Total Low-Income Units: " + hud["Total Low-Income Units:"]);
+            "<h5> Project Name: " + hud["Project Name:"] + "</h5>" + 
+            "<h5> Number of Units: " + hud["Total Number of Units:"]+"</h5>" + 
+            "<h5> Total Low-Income Units: " + hud["Total Low-Income Units:"] + "</h5>"); 
         // add the marker to the hud array
         hudMarkers.push(hudMarker);
         
