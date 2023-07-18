@@ -30,6 +30,7 @@ function createMap(HUDHousing){
             style: styleInfo,
             onEachFeature: function (feature, layer) {
                 layer.bindPopup(
+                    "<h4> Block Group: " + feature.properties.BLKGRP + "</h4>" +
                     "<h5> Total People: " + feature.properties.Lowmoduniv + "</h5>" +
                     "<h5> Low to Mod Percent: " + ((feature.properties.Lowmod_pct)*100).toFixed(2) +"%"+ "</h5>" +
                     "<h5> Low Percent: " + ((feature.properties.Low/feature.properties.Lowmoduniv)*100).toFixed(2) +"%</h5>"
