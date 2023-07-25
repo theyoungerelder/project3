@@ -33,7 +33,7 @@ function plotGraph(x1,y1,type,ytitle,title,ID){
 }
 
 // pass in data from CSV's to plot using the function
-d3.csv("https://raw.githubusercontent.com/theyoungerelder/project3/Nicks_Branch/Value_Trends1.csv").then((data)=>{
+d3.csv("https://raw.githubusercontent.com/theyoungerelder/project3/main/Value_Trends1.csv").then((data)=>{
   let x1 = [];
   let y1 = [];
   let ytitle = "Home Value";
@@ -54,7 +54,7 @@ d3.csv("https://raw.githubusercontent.com/theyoungerelder/project3/Nicks_Branch/
   plotGraph(x1,y1,type,ytitle,title,ID)
 })
 
-d3.csv("https://raw.githubusercontent.com/theyoungerelder/project3/Nicks_Branch/2021_non_fam_income.csv").then((data)=>{
+d3.csv("https://raw.githubusercontent.com/theyoungerelder/project3/main/2021_non_fam_income.csv").then((data)=>{
   let x1 = [];
   let y1 = [];
   let ytitle = "# of People in Category";
